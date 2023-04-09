@@ -407,7 +407,6 @@ h3 {
 #contact {
 	background-color: var(--primary-color);
 	color: var(--secondery-color);
-	border-top: 1px solid var(--secondery-color);
 	padding: 20px 0;
 	text-align: center;
 }
