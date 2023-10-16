@@ -59,6 +59,10 @@ body {
 
 /* HEADING */
 
+.showcase {
+  overflow: hidden;
+}
+
 .showcase:after {
   content: "";
   height: 100vh;
@@ -119,18 +123,31 @@ nav ul li {
 }
 
 .nav-link {
+  display: inline-block;
+  position: relative;
   text-decoration: none;
   color: white;
 }
 
+.nav-link::before {
+  content: "";
+  position: absolute;
+  top: calc(100% + 2px);
+  right: 0;
+  display: block;
+  height: 2px;
+  background-color: var(--secondery-color);
+  transition: all 0.25s ease-in;
+  width: 0%;
+}
+
 .nav-link:hover {
   color: var(--secondery-color);
-  border-bottom: 3px solid var(--secondery-color);
-  padding-bottom: 4px;
-  -o-transition: 0.2s;
-  -ms-transition: 0.2s;
-  -moz-transition: 0.2s;
-  -webkit-transition: 0.2s;
+}
+
+.nav-link:hover::before {
+  width: 100%;
+  left: 0;
 }
 
 .arrow {
@@ -233,15 +250,22 @@ nav ul li {
 }
 
 .content .title {
-  padding-left: 20px;
   font-size: 32px;
   font-size: 2rem;
+}
+
+.content .title h1 {
+  color: white;
 }
 
 .content .text {
   padding-left: 20px;
   font-size: 16px;
   font-size: 1rem;
+}
+
+.content .text h2 {
+  color: white;
 }
 
 h1,
@@ -252,6 +276,14 @@ ul {
   margin: 0;
   padding: 0;
   font-weight: 400;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  color: #30145e;
 }
 
 .title-secondery {
@@ -322,24 +354,32 @@ ul {
   color: var(--primary-color);
 }
 
-.skills-list {
+.skills-list__wrapper {
   font-size: 18px;
 }
 
-.skills-list ul {
-  display: -ms-grid;
-  display: grid;
-  -ms-grid-columns: (1fr) [5];
-  grid-template-columns: repeat(4, 1fr);
-  grid-gap: 10px;
+.skills-list__wrapper .skills-list {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
   padding: 0;
 }
 
-.skills-list ul li {
-  text-align: center;
-  list-style: none;
-  padding: 5px 15px;
-  background-color: #d3d3d3;
+.skills-list__wrapper .skills-list li {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+  width: 100px;
+  background: white;
+  padding: 15px;
+  border-radius: 5px;
+}
+
+.skills-list__wrapper ul li svg {
+  width: 100%;
+  height: 100%;
 }
 
 /* MY PROJECTS */
@@ -373,11 +413,50 @@ ul {
   width: 50%;
 }
 
+.project-col--2 h3 {
+  font-weight: 700;
+  font-size: 20px;
+  padding-bottom: 10px;
+  color: var(--primary-color);
+  transition: all 0.4s ease-in-out;
+}
+
+.project-col--2 a {
+  display: inline-block;
+  text-decoration: none;
+  position: relative;
+}
+
+.project-col--2 a::before {
+  content: "";
+  position: absolute;
+  top: calc(100% - 10px);
+  right: 0;
+  display: block;
+  height: 2px;
+  background-color: #30145e;
+  transition: all 0.25s ease-in;
+  width: 0%;
+}
+
+.project-col--2 h3:hover {
+  color: #30145e;
+}
+
+.project-col--2 a:hover::before {
+  width: 100%;
+  left: 0;
+}
+
+.project-col--2 p {
+  font-size: 14px;
+}
+
 .project-img-wrapper {
   position: relative;
   aspect-ratio: 16 / 9;
   overflow: hidden;
-  -webkit-mask-image: -webkit-radial-gradient(white, black);
+  border-radius: 5px;
   -webkit-box-shadow: 0 9px 54px -4px rgb(136, 136, 136);
   -moz-box-shadow: 0 9px 54px -4px rgba(136, 136, 136);
   box-shadow: 0 9px 54px -4px rgba(136, 136, 136);
@@ -386,7 +465,6 @@ ul {
 .project-img {
   width: 100%;
   height: 100%;
-  border-radius: 5px;
   object-fit: cover;
   transition: all 0.4s ease-in-out;
 }
@@ -424,14 +502,14 @@ ul {
 }
 
 .content-wrapper {
-  background-color: var(--primary-color);
+  background-color: #30145e;
   border-radius: 8px;
   padding-top: 20px;
   padding-bottom: 20px;
 }
 
-.contact-header {
-  color: var(--secondery-color);
+.contact-header h2 {
+  color: white;
 }
 
 .contact-subheader {
@@ -453,7 +531,7 @@ ul {
   align-items: center;
   -ms-flex-pack: distribute;
   justify-content: space-around;
-  max-width: 160px;
+  max-width: 220px;
   margin: 0 auto;
 }
 
@@ -490,7 +568,7 @@ ul {
 }
 
 @media only screen and (max-width: 700px) {
-  .skills-list ul {
+  .skills-list__wrapper ul {
     -ms-grid-columns: 1fr 10px 1fr;
     grid-template-columns: repeat(2, 1fr);
   }
@@ -570,12 +648,12 @@ ul {
     text-align: center;
   }
 
-  .react-portfolio-link {
-    z-index: 3;
+  .arrow {
+    display: none;
   }
 
-  #about-me {
-    height: 450px;
+  .react-portfolio-link {
+    z-index: 3;
   }
 
   .my-info {
@@ -585,27 +663,14 @@ ul {
     text-align: center;
   }
 
-  #skills {
-    height: 470px;
-    margin-top: 80px;
-  }
-
-  .skills-list ul {
+  .skills-list__wrapper ul {
     -ms-grid-columns: 1fr;
     grid-template-columns: 1fr;
-  }
-
-  #projects {
-    height: 680px;
   }
 
   .my-projects {
     -ms-grid-columns: 1fr;
     grid-template-columns: 1fr;
-  }
-
-  #contact {
-    height: 130px;
   }
 
   .contact-header {
